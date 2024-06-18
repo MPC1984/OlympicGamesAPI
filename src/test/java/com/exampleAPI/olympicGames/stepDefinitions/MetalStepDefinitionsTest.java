@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 public class MetalStepDefinitionsTest extends CucumberSpringConfiguration {
 
     private RequestSpecification request;
