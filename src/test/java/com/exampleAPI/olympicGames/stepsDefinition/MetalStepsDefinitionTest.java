@@ -1,4 +1,4 @@
-package com.exampleAPI.olympicGames.stepDefinitions;
+package com.exampleAPI.olympicGames.stepsDefinition;
 
 import com.exampleAPI.olympicGames.runners.CucumberSpringConfiguration;
 import io.cucumber.java.Before;
@@ -12,15 +12,13 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Assert;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 //@RunWith(SpringRunner.class)
-public class MetalStepDefinitionsTest extends CucumberSpringConfiguration {
+public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
 
     private RequestSpecification request;
     private Response response;
@@ -42,7 +40,7 @@ public class MetalStepDefinitionsTest extends CucumberSpringConfiguration {
             if(entry.getKey().equals("id")){
                 randomId = Long.parseLong(entry.getValue().toString());
             } else {
-                randomMetalType = (String) entry.getValue();
+                randomMetalType = entry.getValue().toString();
             }
         }
         //Obtenemos el metal de la lista que se ha añadido durante la ejecución de las pruebas

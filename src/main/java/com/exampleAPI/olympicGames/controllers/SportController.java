@@ -2,6 +2,15 @@ package com.exampleAPI.olympicGames.controllers;
 
 import com.exampleAPI.olympicGames.models.SportModel;
 import com.exampleAPI.olympicGames.services.SportService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,21 +22,18 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping ("/olympicGames/sport")
+@Tag(name = "Sports", description = "Operations over sports")
 public class SportController {
 
     @Autowired
     SportService sportService;
 
-    @DeleteMapping (path = "/id={idSport}")
-    public ResponseEntity<Object> deleteSport(@PathVariable("idSport") Long idSport) {
-        if(this.sportService.getSportById(idSport).isPresent()) {
-            this.sportService.deleteSport(idSport);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
+    @Operation(summary = "Get all sports information")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of all sports information",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SportModel.class))) }),
+            @ApiResponse(responseCode = "404", description = "There are no sports",
+                    content = @Content) })
     @GetMapping
     public ResponseEntity<List<SportModel>> getSport() {
         if(!this.sportService.getSport().isEmpty()) {
@@ -37,8 +43,15 @@ public class SportController {
         }
     }
 
+    @Operation(summary = "Get a sport information by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Information of the sport with the indicated id",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = SportModel.class)) }),
+            @ApiResponse(responseCode = "404", description = "Sport with the indicated id not found",
+                    content = @Content) })
     @GetMapping (path = "/id={idSport}")
-    public ResponseEntity<Optional<SportModel>> getSportById(@PathVariable("idSport") Long idSport) {
+    public ResponseEntity<Optional<SportModel>> getSportById(@PathVariable("idSport") @Parameter(description = "Identifier of the sport", required = true) Long idSport) {
         if(this.sportService.getSportById(idSport).isPresent()) {
             return new ResponseEntity<>(this.sportService.getSportById(idSport), HttpStatus.OK);
         } else {
@@ -46,8 +59,14 @@ public class SportController {
         }
     }
 
+    @Operation(summary = "Get all sports information by their name")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Information of the sports with the indicated name",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SportModel.class))) }),
+            @ApiResponse(responseCode = "404", description = "Sports with the indicated name not found",
+                    content = @Content) })
     @GetMapping (path = "/name={sportName}")
-    public ResponseEntity<List<SportModel>> getSportByName(@PathVariable("sportName") String sportName) {
+    public ResponseEntity<List<SportModel>> getSportByName(@PathVariable("sportName") @Parameter(description = "Name of the sport", required = true) String sportName) {
         if(!this.sportService.getSportByName(sportName).isEmpty()) {
             return new ResponseEntity<>(this.sportService.getSportByName(sportName), HttpStatus.OK);
         } else {
@@ -55,8 +74,14 @@ public class SportController {
         }
     }
 
+    @Operation(summary = "Get all sports information by their category name")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Information of the sports with the indicated category name",
+                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SportModel.class))) }),
+            @ApiResponse(responseCode = "404", description = "Sports with the indicated category name not found",
+                    content = @Content) })
     @GetMapping (path = "/category={sportCategoryName}")
-    public ResponseEntity<List<SportModel>> getSportByCategoryName(@PathVariable("sportCategoryName") String sportCategoryName) {
+    public ResponseEntity<List<SportModel>> getSportByCategoryName(@PathVariable("sportCategoryName") @Parameter(description = "Category name of the sport", required = true) String sportCategoryName) {
         if(!this.sportService.getSportByCategoryName(sportCategoryName).isEmpty()) {
             return new ResponseEntity<>(this.sportService.getSportByCategoryName(sportCategoryName), HttpStatus.OK);
         } else {
@@ -64,8 +89,15 @@ public class SportController {
         }
     }
 
+    @Operation(summary = "Add a new sport")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "New sport added with correct information",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = SportModel.class)) }),
+            @ApiResponse(responseCode = "400", description = "Incorrect information of the new sport",
+                    content = @Content) })
     @PostMapping
-    public ResponseEntity<SportModel> saveSport(@RequestBody Map<String, String> sportContent) {
+    public ResponseEntity<SportModel> saveSport(@RequestBody @Parameter(description = "Sport information", required = true, schema = @Schema(implementation = SportModel.class), examples = { @ExampleObject(name = "sportName", summary = "Sport name", value = "Kárate"), @ExampleObject(name = "sportCategoryName", summary = "Sport category name", value = "Kata") }) Map<String, String> sportContent) {
         String sportName = null;
         String sportCategoryName = null;
         boolean badKeys = false;
@@ -94,8 +126,17 @@ public class SportController {
         return new ResponseEntity<>(this.sportService.saveSport(sportName, sportCategoryName), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Update some sport information of a sport by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Information of the sport with indicated id updated",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = SportModel.class)) }),
+            @ApiResponse(responseCode = "400", description = "Incorrect information to be updated on the sport",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Sport with the indicated id not found",
+                    content = @Content) })
     @PatchMapping (path = "/id={idSport}")
-    public ResponseEntity<SportModel> updateSportById(@PathVariable("idSport") Long idSport, @RequestBody Map<String, String> sportContent) {
+    public ResponseEntity<SportModel> updateSportById(@PathVariable("idSport") @Parameter(description = "Identifier of the sport", required = true) Long idSport, @RequestBody @Parameter(description = "Sport information", required = true, schema = @Schema(implementation = SportModel.class), examples = { @ExampleObject(name = "sportName", summary = "Sport name", value = "Kárate"), @ExampleObject(name = "sportCategoryName", summary = "Sport category name", value = "Kata") }) Map<String, String> sportContent) {
         String sportName = null;
         String sportCategoryName = null;
         boolean badKeys = false;
@@ -124,6 +165,22 @@ public class SportController {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
             return new ResponseEntity<>(this.sportService.updateSportById(oldSport.get(), sportName, sportCategoryName), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Operation(summary = "Delete a sport by its id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Sport with the indicated id deleted",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Sport with the indicated id not found",
+                    content = @Content) })
+    @DeleteMapping (path = "/id={idSport}")
+    public ResponseEntity<Object> deleteSport(@PathVariable("idSport") @Parameter(description = "Identifier of the sport", required = true) Long idSport) {
+        if(this.sportService.getSportById(idSport).isPresent()) {
+            this.sportService.deleteSport(idSport);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
