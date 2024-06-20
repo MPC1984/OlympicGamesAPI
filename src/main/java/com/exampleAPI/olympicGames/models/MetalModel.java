@@ -11,23 +11,23 @@ import jakarta.persistence.*;
 
 //Clase que permite almacenar el modelo de datos de información de un metal
 @Entity
-@Table (name = "metal")
+@Table(name = "metal")
 @Schema(name = "Metal", description = "Metal information")
 public class MetalModel {
 
     //Variable o campo que almacena el identificador del metal
     @Id
-    @Column  (name = "metal_id")
+    @Column(name = "metal_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Metal identifier", example = "1")
     private Long id;
 
     //Variable o campo que almacena el tipo del metal
-    @Column (name = "metal_type", length = 10, nullable = false, unique = true)
+    @Column(name = "metal_type", length = 10, nullable = false, unique = true)
     @Schema(description = "Metal type", example = "Oro")
     private String metalType;
 
-    public MetalModel(){
+    public MetalModel() {
     }
 
     public MetalModel(String metalType) {

@@ -12,24 +12,24 @@ import jakarta.persistence.*;
 
 //Clase que permite almacenar el modelo de datos de información de un deporte
 @Entity
-@Table (name = "sport")
+@Table(name = "sport")
 @Schema(name = "Sport", description = "Sport information")
 public class SportModel {
 
     //Variable o campo que almacena el identificador del deporte
     @Id
-    @Column  (name = "sport_id")
+    @Column(name = "sport_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Sport identifier", example = "1")
     private Long id;
 
     //Variable o campo que almacena el nombre del deporte
-    @Column (name = "sport_name", length = 250, nullable = false)
+    @Column(name = "sport_name", length = 250, nullable = false)
     @Schema(description = "Sport name", example = "Kárate")
     private String sportName;
 
     //Variable o campo que almacena el nombre de la categoría del deporte
-    @Column (name = "sport_category_name", length = 250, nullable = true)
+    @Column(name = "sport_category_name", length = 250, nullable = true)
     @Schema(description = "Sport category name", example = "Kata")
     private String sportCategoryName;
 

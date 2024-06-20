@@ -37,7 +37,7 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
         //Obtenemos un metal de la lista de manera aleatoria para realizar comprobaciones en los diferentes endpoints
         randomMetal = allMetals.get((int) (Math.random() * allMetals.size()));
         for (Map.Entry<String, Object> entry : randomMetal.entrySet()) {
-            if(entry.getKey().equals("id")){
+            if (entry.getKey().equals("id")) {
                 randomId = Long.parseLong(entry.getValue().toString());
             } else {
                 randomMetalType = entry.getValue().toString();
@@ -52,7 +52,7 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
                 }
             }
         }
-        if(metalToUpdate != null) {
+        if (metalToUpdate != null) {
             for (Map.Entry<String, Object> entry : metalToUpdate.entrySet()) {
                 if (entry.getKey().equals("id")) {
                     idToUpdate = Long.parseLong(entry.getValue().toString());
@@ -68,7 +68,7 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
                 }
             }
         }
-        if(metalToUpdate != null) {
+        if (metalToUpdate != null) {
             for (Map.Entry<String, Object> entry : metalToUpdate.entrySet()) {
                 if (entry.getKey().equals("id")) {
                     idToUpdate = Long.parseLong(entry.getValue().toString());

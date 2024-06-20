@@ -22,38 +22,38 @@ import jakarta.persistence.*;
 
 //Clase que permite almacenar el modelo de datos de información del medallero olímpico de todos los Juegos Olímpicos
 @Entity
-@Table (name = "olympic_games_medal_table")
+@Table(name = "olympic_games_medal_table")
 @Schema(name = "Olympic Games medal table", description = "Olympic Games medal table information")
 public class OlympicGamesMedalTableModel {
 
     //Variable o campo que almacena el identificador de un registro del medallero olímpico
     @Id
-    @Column (name = "olympic_games_medal_table_id")
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(name = "olympic_games_medal_table_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Olympic Games medal table identifier", example = "1")
     private Long id;
 
     //Variable o campo que almacena los Juegos Olímpicos de un registro del medallero olímpico
     @OneToOne
-    @JoinColumn (name = "olympic_games_id", referencedColumnName = "olympic_games_id", nullable = false)
+    @JoinColumn(name = "olympic_games_id", referencedColumnName = "olympic_games_id", nullable = false)
     @Schema(description = "Olympic Games identifier", implementation = OlympicGamesModel.class)
     private OlympicGamesModel olympicGames;
 
     //Variable o campo que almacena el deporte de un registro del medallero olímpico
     @OneToOne
-    @JoinColumn (name = "sport_id", referencedColumnName = "sport_id", nullable = false)
+    @JoinColumn(name = "sport_id", referencedColumnName = "sport_id", nullable = false)
     @Schema(description = "Sport identifier", implementation = SportModel.class)
     private SportModel sport;
 
     //Variable o campo que almacena el metal de un registro del medallero olímpico
     @OneToOne
-    @JoinColumn (name = "metal_id", referencedColumnName = "metal_id", nullable = false)
+    @JoinColumn(name = "metal_id", referencedColumnName = "metal_id", nullable = false)
     @Schema(description = "Metal identifier", implementation = MetalModel.class)
     private MetalModel metal;
 
     //Variable o campo que almacena el atleta de un registro del medallero olímpico
     @OneToOne
-    @JoinColumn (name = "athlete_id", referencedColumnName = "athlete_id", nullable = false)
+    @JoinColumn(name = "athlete_id", referencedColumnName = "athlete_id", nullable = false)
     @Schema(description = "Athlete identifier", implementation = AthleteModel.class)
     private AthleteModel athlete;
 

@@ -16,7 +16,7 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 //@RunWith(SpringRunner.class)
-public class AthleteStepsDefinitionTest  extends CucumberSpringConfiguration {
+public class AthleteStepsDefinitionTest extends CucumberSpringConfiguration {
 
     private RequestSpecification request;
     private Response response;
@@ -36,13 +36,13 @@ public class AthleteStepsDefinitionTest  extends CucumberSpringConfiguration {
         randomAthlete = allAthletes.get((int) (Math.random() * allAthletes.size()));
         for (Map.Entry<String, Object> entry : randomAthlete.entrySet()) {
             switch (entry.getKey()) {
-                case "id" :
+                case "id":
                     randomId = Long.parseLong(entry.getValue().toString());
-                case "athleteName" :
+                case "athleteName":
                     randomAthleteName = entry.getValue().toString();
-                case "athleteSurname" :
+                case "athleteSurname":
                     randomAthleteSurname = entry.getValue().toString();
-                default :
+                default:
                     randomAthleteCountry = entry.getValue().toString();
             }
         }

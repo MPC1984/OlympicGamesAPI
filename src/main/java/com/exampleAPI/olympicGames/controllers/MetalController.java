@@ -20,8 +20,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+//Clase en la que se definen las diferentes resultados que se obtienen de las operaciones que se pueden realizar sobre el modelo de datos que tiene la información de un metal
 @RestController
-@RequestMapping ("/olympicGames/metal")
+@RequestMapping("/olympicGames/metal")
 @Tag(name = "Metals", description = "Operations over metals")
 public class MetalController {
 
@@ -31,12 +32,12 @@ public class MetalController {
     @Operation(summary = "Get all metals information")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of all metals information",
-                    content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = MetalModel.class))) }),
+                    content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = MetalModel.class)))}),
             @ApiResponse(responseCode = "404", description = "There are no metals",
-                    content = @Content) })
+                    content = @Content)})
     @GetMapping
     public ResponseEntity<List<MetalModel>> getMetal() {
-        if(!this.metalService.getMetal().isEmpty()) {
+        if (!this.metalService.getMetal().isEmpty()) {
             return new ResponseEntity<>(this.metalService.getMetal(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -46,13 +47,13 @@ public class MetalController {
     @Operation(summary = "Get a metal information by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the metal with the indicated id",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MetalModel.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = MetalModel.class))}),
             @ApiResponse(responseCode = "404", description = "Metal with the indicated id not found",
-                    content = @Content) })
-    @GetMapping (path = "/id={idMetal}")
+                    content = @Content)})
+    @GetMapping(path = "/id={idMetal}")
     public ResponseEntity<Optional<MetalModel>> getMetalById(@PathVariable("idMetal") @Parameter(description = "Identifier of the metal", required = true) Long idMetal) {
-        if(this.metalService.getMetalById(idMetal).isPresent()) {
+        if (this.metalService.getMetalById(idMetal).isPresent()) {
             return new ResponseEntity<>(this.metalService.getMetalById(idMetal), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -62,13 +63,13 @@ public class MetalController {
     @Operation(summary = "Get a metal information by its type")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the metal with the indicated type",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MetalModel.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = MetalModel.class))}),
             @ApiResponse(responseCode = "404", description = "Metal with the indicated type not found",
-                    content = @Content) })
-    @GetMapping (path = "/type={metalType}")
+                    content = @Content)})
+    @GetMapping(path = "/type={metalType}")
     public ResponseEntity<MetalModel> getMetalByType(@PathVariable("metalType") @Parameter(description = "Type of the metal", required = true) String metalType) {
-        if(this.metalService.getMetalByType(metalType) != null) {
+        if (this.metalService.getMetalByType(metalType) != null) {
             return new ResponseEntity<>(this.metalService.getMetalByType(metalType), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -78,10 +79,10 @@ public class MetalController {
     @Operation(summary = "Add a new metal")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "New metal added with correct information",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MetalModel.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = MetalModel.class))}),
             @ApiResponse(responseCode = "400", description = "Incorrect information of the new metal",
-                    content = @Content) })
+                    content = @Content)})
     @PostMapping
     public ResponseEntity<MetalModel> saveMetal(@RequestBody @Parameter(description = "Metal information", required = true, schema = @Schema(implementation = MetalModel.class), examples = @ExampleObject(name = "metalType", summary = "Metal type", value = "Oro")) Map<String, String> metalContent) {
         String metalType = null;
@@ -95,10 +96,10 @@ public class MetalController {
                     break;
                 }
             }
-            if(badKeys) {
+            if (badKeys) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            if(metalType == null){
+            if (metalType == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch (RuntimeException e) {
@@ -114,18 +115,18 @@ public class MetalController {
     @Operation(summary = "Update some metal information of a metal by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the metal with indicated id updated",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MetalModel.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = MetalModel.class))}),
             @ApiResponse(responseCode = "400", description = "Incorrect information to be updated on the metal",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Metal with the indicated id not found",
-                    content = @Content) })
-    @PatchMapping (path = "/id={idMetal}")
+                    content = @Content)})
+    @PatchMapping(path = "/id={idMetal}")
     public ResponseEntity<MetalModel> updateMetalById(@PathVariable("idMetal") @Parameter(description = "Identifier of the metal", required = true) Long idMetal, @RequestBody @Parameter(description = "Metal information", required = true, schema = @Schema(implementation = MetalModel.class), examples = @ExampleObject(name = "metalType", summary = "Metal type", value = "Oro")) Map<String, String> metalContent) {
         String metalType = null;
         boolean badKeys = false;
         Optional<MetalModel> oldMetal = this.metalService.getMetalById(idMetal);
-        if(oldMetal.isPresent()) {
+        if (oldMetal.isPresent()) {
             try {
                 for (Map.Entry<String, String> entry : metalContent.entrySet()) {
                     if (entry.getKey().equals("metalType")) {
@@ -135,10 +136,10 @@ public class MetalController {
                         break;
                     }
                 }
-                if(badKeys) {
+                if (badKeys) {
                     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 }
-                if(metalType == null){
+                if (metalType == null) {
                     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 }
             } catch (RuntimeException e) {
@@ -159,10 +160,10 @@ public class MetalController {
             @ApiResponse(responseCode = "204", description = "Metal with the indicated id deleted",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Metal with the indicated id not found",
-                    content = @Content) })
-    @DeleteMapping (path = "/id={idMetal}")
+                    content = @Content)})
+    @DeleteMapping(path = "/id={idMetal}")
     public ResponseEntity<Object> deleteMetal(@PathVariable("idMetal") @Parameter(description = "Identifier of the metal", required = true) Long idMetal) {
-        if(this.metalService.getMetalById(idMetal).isPresent()) {
+        if (this.metalService.getMetalById(idMetal).isPresent()) {
             this.metalService.deleteMetal(idMetal);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
