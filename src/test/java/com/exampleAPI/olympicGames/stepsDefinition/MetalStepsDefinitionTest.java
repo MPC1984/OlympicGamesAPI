@@ -77,31 +77,31 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
         }
     }
 
-    @Given("A list of metals")
+    @Given("a list of metals")
     public void a_list_of_metals() {
         request = given().header("Content-Type", "application/json");
     }
 
-    @Given("A new metal with metal type {string}")
+    @Given("a new metal with metal type {string}")
     public void a_new_metal_with_metal_type(String metalType) {
         newMetal = new HashMap<>();
         newMetal.put("metalType", metalType);
         request = given().header("Content-Type", "application/json");
     }
 
-    @Given("A new metal without metal type")
+    @Given("a new metal without metal type")
     public void a_new_metal_without_metal_type() {
         newMetal = new HashMap<>();
         newMetal.put("metalType", null);
         request = given().header("Content-Type", "application/json");
     }
 
-    @Given("An existing metal")
+    @Given("an existing metal")
     public void an_existing_metal() {
         request = given().header("Content-Type", "application/json");
     }
 
-    @Given("A non-existent metal")
+    @Given("a non-existent metal")
     public void a_non_existent_metal() {
         idToUpdate = 9999L;
         request = given().header("Content-Type", "application/json");
@@ -162,8 +162,8 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
         Assert.assertFalse(allMetals.isEmpty());
     }
 
-    @Then("no information is shown and an error is shown")
-    public void no_information_is_shown_and_an_error_is_shown() {
+    @Then("no metal information is shown and a not found error is shown")
+    public void no_metal_information_is_shown_and_a_not_found_error_is_shown() {
         Assert.assertEquals(404, response.getStatusCode());
     }
 
@@ -191,14 +191,18 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
         newMetal.clear();
     }
 
-    @Then("an error is shown")
-    public void an_error_is_shown() {
+    @Then("a bad request error is shown")
+    public void a_bad_request_error_is_shown() {
         Assert.assertEquals(400, response.getStatusCode());
-        newMetal.clear();
+    }
+
+    @Then("no metal information is shown and a duplicated information error is shown")
+    public void no_metal_information_is_shown_and_a_duplicated_information_error_is_shown() {
+        Assert.assertEquals(409, response.getStatusCode());
     }
 
     @Then("the metal is correctly updated and its information is shown")
-    public void the_metal_is_correctly_updated_anbd_its_information_is_shown() {
+    public void the_metal_is_correctly_updated_and_its_information_is_shown() {
         Assert.assertEquals(200, response.getStatusCode());
         responseInformation = JsonPath.from(response.asString()).get();
         for (Map.Entry<String, Object> entry : responseInformation.entrySet()) {

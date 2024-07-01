@@ -48,7 +48,7 @@ public class AthleteStepsDefinitionTest extends CucumberSpringConfiguration {
         }
     }
 
-    @Given("A list of athletes")
+    @Given("a list of athletes")
     public void a_list_of_athletes() {
         request = given().header("Content-Type", "application/json");
     }

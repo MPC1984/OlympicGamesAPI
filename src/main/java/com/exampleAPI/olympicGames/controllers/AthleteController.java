@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+//Clase en la que se definen las diferentes peticiones API que se pueden realizar sobre el modelo de datos que tiene la información de un atleta
 @RestController
 @RequestMapping("/olympicGames/athlete")
 @Tag(name = "Athletes", description = "Operations over athletes")
@@ -28,6 +29,9 @@ public class AthleteController {
     @Autowired
     AthleteService athleteService;
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los atletas
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all athletes information")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of all athletes information",
@@ -43,6 +47,9 @@ public class AthleteController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener la información de un atleta que tiene un determinado identificador
+    //Se mostrará un código de respuesta 200 si se encuentra el atleta y por tanto su información
+    //Se mostrará un código de respuesta 404 si no se encuentra el atleta
     @Operation(summary = "Get an athlete information by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the athlete with the indicated id",
@@ -59,6 +66,9 @@ public class AthleteController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los atletas que tienen un determinado nombre
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all athletes information by their name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the athletes with the indicated name",
@@ -74,6 +84,9 @@ public class AthleteController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los atletas que tienen unos determinados apellidos
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all athletes information by their surname")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the athletes with the indicated surname",
@@ -89,6 +102,9 @@ public class AthleteController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los atletas que representan a un determinado país
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all athletes information by their country")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the athletes with the indicated country",
@@ -104,6 +120,9 @@ public class AthleteController {
         }
     }
 
+    //Método o petición API de tipo POST para guardar la información de un atleta dados el nombre, los apellidos y país al que representa
+    //Se mostrará un código de respuesta 201 si se puede guardar el atleta y por tanto su información
+    //Se mostrará un código de respuesta 400 si no se puede guardar el atleta porque la información que se quiere guardar no es correcta (la información no tiene los nombres de la claves del body correctos, es nula o no es del tipo correcto)
     @Operation(summary = "Add a new athlete")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "New athlete added with correct information",
@@ -145,6 +164,10 @@ public class AthleteController {
         return new ResponseEntity<>(this.athleteService.saveAthlete(athleteName, athleteSurname, athleteCountry), HttpStatus.CREATED);
     }
 
+    //Método o petición API de tipo PATCH para actualizar la información de un atleta que tiene un determinado identificador con el nuevo nombre y/o los nuevos apellidos y/o el nuevo país al que representa
+    //Se mostrará un código de respuesta 200 si se puede actualizar el atleta y por tanto su información
+    //Se mostrará un código de respuesta 400 si no se puede actualizar el atleta porque la información que se quiere actualizar no es correcta (la información no tiene los nombres de la claves del body correctos, es nula o no es del tipo correcto)
+    //Se mostrará un código de respuesta 404 si no se encuentra el atleta cuya información se quiere actualizar
     @Operation(summary = "Update some athlete information of an athlete by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the athlete with indicated id updated",
@@ -193,7 +216,9 @@ public class AthleteController {
         }
     }
 
-
+    //Método o petición API de tipo DELETE para eliminar la información de un atleta que tiene un determinado identificador
+    //Se mostrará un código de respuesta 204 si existía el atleta y su información ha sido eliminada
+    //Se mostrará un código de respuesta 404 si no se encuentra el atleta cuya información se quiere eliminar
     @Operation(summary = "Delete an athlete by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Athlete with the indicated id deleted",

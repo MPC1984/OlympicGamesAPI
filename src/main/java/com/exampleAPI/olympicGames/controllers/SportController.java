@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+//Clase en la que se definen las diferentes peticiones API que se pueden realizar sobre el modelo de datos que tiene la información de un deporte
 @RestController
 @RequestMapping("/olympicGames/sport")
 @Tag(name = "Sports", description = "Operations over sports")
@@ -28,6 +29,9 @@ public class SportController {
     @Autowired
     SportService sportService;
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los deportes
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all sports information")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of all sports information",
@@ -43,6 +47,9 @@ public class SportController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener la información de un deporte que tiene un determinado identificador
+    //Se mostrará un código de respuesta 200 si se encuentra el deporte y por tanto su información
+    //Se mostrará un código de respuesta 404 si no se encuentra el deporte
     @Operation(summary = "Get a sport information by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the sport with the indicated id",
@@ -59,6 +66,9 @@ public class SportController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los deportes que tienen un determinado nombre
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all sports information by their name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the sports with the indicated name",
@@ -74,6 +84,9 @@ public class SportController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los deportes que tienen una determinada categoría
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all sports information by their category name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the sports with the indicated category name",
@@ -89,6 +102,9 @@ public class SportController {
         }
     }
 
+    //Método o petición API de tipo POST para guardar la información de un deporte dados el nombre y la categoría
+    //Se mostrará un código de respuesta 201 si se puede guardar el deporte y por tanto su información
+    //Se mostrará un código de respuesta 400 si no se puede guardar el deporte porque la información que se quiere guardar no es correcta (la información no tiene los nombres de la claves del body correctos, es nula o no es del tipo correcto)
     @Operation(summary = "Add a new sport")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "New sport added with correct information",
@@ -126,6 +142,10 @@ public class SportController {
         return new ResponseEntity<>(this.sportService.saveSport(sportName, sportCategoryName), HttpStatus.CREATED);
     }
 
+    //Método o petición API de tipo PATCH para actualizar la información de un deporte que tiene un determinado identificador con el nuevo nombre y/o la nueva categoría
+    //Se mostrará un código de respuesta 200 si se puede actualizar el deporte y por tanto su información
+    //Se mostrará un código de respuesta 400 si no se puede actualizar el deporte porque la información que se quiere actualizar no es correcta (la información no tiene los nombres de la claves del body correctos, no es del tipo correcto o el nuevo nombre es nulo)
+    //Se mostrará un código de respuesta 404 si no se encuentra el deporte cuya información se quiere actualizar
     @Operation(summary = "Update some sport information of a sport by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the sport with indicated id updated",
@@ -170,6 +190,9 @@ public class SportController {
         }
     }
 
+    //Método o petición API de tipo DELETE para eliminar la información de un deporte que tiene un determinado identificador
+    //Se mostrará un código de respuesta 204 si existía el deporte y su información ha sido eliminada
+    //Se mostrará un código de respuesta 404 si no se encuentra el deporte cuya información se quiere eliminar
     @Operation(summary = "Delete a sport by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Sport with the indicated id deleted",

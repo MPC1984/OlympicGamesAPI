@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+//Clase en la que se definen las diferentes peticiones API que se pueden realizar sobre el modelo de datos que tiene la información del medallero olímpico de todos los Juegos Olímpicos
 @RestController
 @RequestMapping("/olympicGames/medalTable")
 @Tag(name = "Olympic Games medal table", description = "Operations over Olympic Games medal table")
@@ -25,6 +26,9 @@ public class OlympicGamesMedalTableController {
     @Autowired
     OlympicGamesMedalTableService olympicGamesMedalTableService;
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of all records of the Olympic Games medal table information",
@@ -40,6 +44,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener la información de un registro del medallero olímpico de todos los Juegos Olímpicos que tiene un determinado identificador
+    //Se mostrará un código de respuesta 200 si se encuentra el registro del medallero olímpico de todos los Juegos Olímpicos y por tanto su información
+    //Se mostrará un código de respuesta 404 si no se encuentra el registro del medallero olímpico de todos los Juegos Olímpicos
     @Operation(summary = "Get a record of the Olympic Games medal table information by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the record of the Olympic Games medal table with the indicated id",
@@ -56,6 +63,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen un determinado identificador de Juegos Olímpicos
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their Olympic Games id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated Olympic Games id",
@@ -71,6 +81,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen un determinado año de celebración de Juegos Olímpicos
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their Olympic Games year")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated Olympic Games year",
@@ -86,6 +99,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen un determinado lugar de celebración de Juegos Olímpicos
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their Olympic Games place")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated Olympic Games place",
@@ -101,6 +117,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen un determinado identificador de deporte
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their sport id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated sport id",
@@ -116,6 +135,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen un determinado nombre de deporte
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their sport name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated sport name",
@@ -131,6 +153,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen una determinada categoría de deporte
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their sport category name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated sport category name",
@@ -146,6 +171,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen un determinado identificador de metal
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their metal id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated metal id",
@@ -161,6 +189,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen un determinado tipo de metal
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their metal type")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated metal type",
@@ -176,6 +207,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen un determinado identificador de atleta
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their athlete id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated athlete id",
@@ -191,6 +225,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen un determinado nombre de atleta
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their athlete name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated athlete name",
@@ -206,6 +243,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen unos determinados apellidos de atleta
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their athlete surname")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated athlete surname",
@@ -221,6 +261,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo GET para obtener una lista con la información de todos los registros del medallero olímpico de todos los Juegos Olímpicos que tienen un determinado país al que representa el atleta
+    //Se mostrará un código de respuesta 200 si la lista no está vacía (es decir, contiene información)
+    //Se mostrará un código de respuesta 404 si la lista está vacía (es decir, no contiene información)
     @Operation(summary = "Get all records of the Olympic Games medal table information by their athlete country")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the records of the Olympic Games medal table with the indicated athlete country",
@@ -236,6 +279,10 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo POST para guardar la información de un registro del medallero olímpico de todos los Juegos Olímpicos dados el identificador de los Juegos Olímpicos, el identificador del deporte, el identificador del metal y el identificador del atleta
+    //Se mostrará un código de respuesta 201 si se puede guardar el registro del medallero olímpico de todos los Juegos Olímpicos y por tanto su información
+    //Se mostrará un código de respuesta 400 si no se puede guardar el registro del medallero olímpico de todos los Juegos Olímpicos porque la información que se quiere guardar no es correcta (la información no tiene los nombres de la claves del body correctos, es 0 o no es del tipo correcto)
+    //Se mostrará un código de respuesta 404 si no se encuentra alguna información del registro del medallero olímpico de todos los Juegos Olímpicos (alguno de los identificadores no existe)
     @Operation(summary = "Add a new record in the Olympic Games medal table")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "New record in the Olympic Games medal table added with correct information",
@@ -289,6 +336,10 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo PATCH para actualizar la información de un registro del medallero olímpico de todos los Juegos Olímpicos que tiene un determinado identificador con el nuevo identificador de Juegos Olímpicos y/o el nuevo identificador de deporte y/o el nuevo identificador de metal y/o el nuevo identificador de atleta
+    //Se mostrará un código de respuesta 200 si se puede actualizar el registro del medallero olímpico de todos los Juegos Olímpicos y por tanto su información
+    //Se mostrará un código de respuesta 400 si no se puede actualizar el registro del medallero olímpico de todos los Juegos Olímpicos porque la información que se quiere actualizar no es correcta (la información no tiene los nombres de la claves del body correctos, es 0 o no es del tipo correcto)
+    //Se mostrará un código de respuesta 404 si no se encuentra el registro del medallero olímpico de todos los Juegos Olímpicos cuya información se quiere actualizar o no se encuentra alguna información del registro del medallero olímpico de todos los Juegos Olímpicos (alguno de los identificadores no existe)
     @Operation(summary = "Update some information of a record of the Olympic Games medal table by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Information of the record of the Olympic Games medal table with indicated id updated",
@@ -296,7 +347,7 @@ public class OlympicGamesMedalTableController {
                             schema = @Schema(implementation = OlympicGamesMedalTableModel.class))}),
             @ApiResponse(responseCode = "400", description = "Incorrect information to be updated on the record of the Olympic Games medal table",
                     content = @Content),
-            @ApiResponse(responseCode = "404", description = "Record of the Olympic Games medal table with the indicated id not found",
+            @ApiResponse(responseCode = "404", description = "Record of the Olympic Games medal table with the indicated id not found or information of the record to be updated for the Olympic Games medal table not found",
                     content = @Content)})
     @PatchMapping(path = "/id={idOlympicGamesMedalTable}")
     //public ResponseEntity<OlympicGamesMedalTableModel> updateOlympicGamesMedalTableById(@PathVariable("idOlympicGamesMedalTable") @Parameter(description = "Identifier of the record of the Olympic Games medal table", required = true) Long idOlympicGamesMedalTable, @RequestBody @Parameter(description = "Information for the Olympic Games medal table record", required = true, schema = @Schema(implementation = OlympicGamesMedalTableModel.class), examples = { @ExampleObject(name = "idOlympicGames", summary = "Identifier of the Olympic Games", value = "1"), @ExampleObject(name = "idSport", summary = "Identifier of the sport", value = "1"), @ExampleObject(name = "idMetal", summary = "Identifier of the metal", value = "1"), @ExampleObject(name = "idAthlete", summary = "Identifier of the athlete", value = "1") }) Map<String, Object> idsOlympicGamesMedalTable) {
@@ -347,6 +398,9 @@ public class OlympicGamesMedalTableController {
         }
     }
 
+    //Método o petición API de tipo DELETE para eliminar la información de un registro del medallero olímpico de todos los Juegos Olímpicos que tiene un determinado identificador
+    //Se mostrará un código de respuesta 204 si existía el registro del medallero olímpico de todos los Juegos Olímpicos y su información ha sido eliminada
+    //Se mostrará un código de respuesta 404 si no se encuentra el registro del medallero olímpico de todos los Juegos Olímpicos cuya información se quiere eliminar
     @Operation(summary = "Delete a record of the Olympic Games medal table by its id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Record of the Olympic Games medal table with the indicated id deleted",
