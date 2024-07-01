@@ -53,7 +53,7 @@ Feature: Test athlete endpoint
   Scenario: Adding a new athlete without name
     Given a new athlete without name
     When we want to add this new ahlete
-    Then a bad request error is shown
+    Then a bad request error is shown for the athlete
 
   Scenario: Updating an existing athlete
     Given an existing athlete

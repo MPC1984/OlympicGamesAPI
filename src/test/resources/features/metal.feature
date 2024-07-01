@@ -33,7 +33,7 @@ Feature: Test metal endpoint
   Scenario: Adding a new metal without metal type
     Given a new metal without metal type
     When we want to add this new metal
-    Then a bad request error is shown
+    Then a bad request error is shown for the metal
 
   Scenario: Adding a duplicated metal
     Given a new metal with metal type "Oro"

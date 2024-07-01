@@ -191,8 +191,8 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
         newMetal.clear();
     }
 
-    @Then("a bad request error is shown")
-    public void a_bad_request_error_is_shown() {
+    @Then("a bad request error is shown for the metal")
+    public void a_bad_request_error_is_shown_for_the_metal() {
         Assert.assertEquals(400, response.getStatusCode());
     }
 
