@@ -5,6 +5,11 @@ Feature: Test metal endpoint
     When we want to see all metals information
     Then all metals information is shown
 
+  #Scenario: Getting all metals when the list is empty
+    #Given a list of empty metals
+    #When we want to see all metals information when the list is empty
+    #Then no metals information is shown and a not found error is shown
+
   Scenario: Getting a metal by its identifier
     Given a list of metals
     When we want to see the information of a concrete metal by its identifier

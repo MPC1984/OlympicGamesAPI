@@ -1,6 +1,7 @@
 package com.exampleAPI.olympicGames.stepsDefinition;
 
 import com.exampleAPI.olympicGames.runners.CucumberSpringConfiguration;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -77,10 +78,37 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
         }
     }
 
+    @After
+    public void deleteDataGeneration() {
+        if (responseInformation != null) {
+            responseInformation.clear();
+        }
+        if (allMetals != null) {
+            allMetals.clear();
+        }
+        if (newMetal != null) {
+            newMetal.clear();
+        }
+        if (newMetalToUpdate != null) {
+            newMetalToUpdate.clear();
+        }
+        if (randomMetal != null) {
+            randomMetal.clear();
+        }
+        if (metalToUpdate != null) {
+            metalToUpdate.clear();
+        }
+    }
+
     @Given("a list of metals")
     public void a_list_of_metals() {
         request = given().header("Content-Type", "application/json");
     }
+
+//    @Given("a list of empty metals")
+//    public void a_list_of_empty_metals() {
+//        request = given().header("Content-Type", "application/json");
+//    }
 
     @Given("a new metal with metal type {string}")
     public void a_new_metal_with_metal_type(String metalType) {
@@ -162,10 +190,10 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
         Assert.assertFalse(allMetals.isEmpty());
     }
 
-    @Then("no metal information is shown and a not found error is shown")
-    public void no_metal_information_is_shown_and_a_not_found_error_is_shown() {
-        Assert.assertEquals(404, response.getStatusCode());
-    }
+//    @Then("no metals information is shown and a not found error is shown")
+//    public void no_metals_information_is_shown_and_a_not_found_error_is_shown() {
+//        Assert.assertEquals(404, response.getStatusCode());
+//    }
 
     @Then("the metal information is shown")
     public void the_metal_information_is_shown() {
@@ -177,6 +205,11 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
                 Assert.assertEquals(randomMetalType, entry.getValue());
             }
         }
+    }
+
+    @Then("no metal information is shown and a not found error is shown")
+    public void no_metal_information_is_shown_and_a_not_found_error_is_shown() {
+        Assert.assertEquals(404, response.getStatusCode());
     }
 
     @Then("the metal is correctly added and its information is shown")
