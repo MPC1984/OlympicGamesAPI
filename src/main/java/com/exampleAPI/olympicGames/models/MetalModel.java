@@ -20,7 +20,7 @@ public class MetalModel {
     @Column(name = "metal_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Metal identifier", example = "1")
-    private Long id;
+    private Long metalId;
 
     //Variable o campo que almacena el tipo del metal
     @Column(name = "metal_type", length = 10, nullable = false, unique = true)
@@ -34,12 +34,12 @@ public class MetalModel {
         this.metalType = metalType;
     }
 
-    public Long getId() {
-        return id;
+    public Long getMetalId() {
+        return metalId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMetalId(Long metalId) {
+        this.metalId = metalId;
     }
 
     public String getMetalType() {

@@ -22,7 +22,7 @@ public class AthleteModel {
     @Column(name = "athlete_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Athlete identifier", example = "1")
-    private Long id;
+    private Long athleteId;
 
     //Variable o campo que almacena el nombre del atleta
     @Column(name = "athlete_name", length = 250, nullable = false)
@@ -48,12 +48,12 @@ public class AthleteModel {
         this.athleteCountry = athleteCountry;
     }
 
-    public Long getId() {
-        return id;
+    public Long getAthleteId() {
+        return athleteId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAthleteId(Long athleteId) {
+        this.athleteId = athleteId;
     }
 
     public String getAthleteName() {

@@ -65,6 +65,11 @@ Feature: Test athlete endpoint
     When we want to update its name to "an_updated", its surname to "as_updated" and its country to "ac_updated"
     Then the athlete is correctly updated and its information is shown
 
+  Scenario: Updating an existing athlete with null data
+    Given an existing athlete
+    When we want to update its name, its surname and its country with null data
+    Then a bad request error is shown for the athlete
+
   Scenario: Updating a non-existent athlete
     Given a non-existent athlete
     When we want to update its name to "an_updated", its surname to "as_updated" and its country to "ac_updated"

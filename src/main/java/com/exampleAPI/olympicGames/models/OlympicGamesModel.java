@@ -21,7 +21,7 @@ public class OlympicGamesModel {
     @Column(name = "olympic_games_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Olympic Games identifier", example = "1")
-    private Long id;
+    private Long olympicGamesId;
 
     //Variable o campo que almacena el año de los Juegos Olímpicos
     @Column(name = "olympic_games_year", nullable = false, unique = true)
@@ -41,12 +41,12 @@ public class OlympicGamesModel {
         this.olympicGamesPlace = olympicGamesPlace;
     }
 
-    public Long getId() {
-        return id;
+    public Long getOlympicGamesId() {
+        return olympicGamesId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOlympicGamesId(Long olympicGamesId) {
+        this.olympicGamesId = olympicGamesId;
     }
 
     public Integer getOlympicGamesYear() {

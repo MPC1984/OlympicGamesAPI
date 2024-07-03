@@ -55,6 +55,11 @@ Feature: Test sport endpoint
     When we want to update its name to "sn_updated" and its category to "sc_updated"
     Then the sport is correctly updated and its information is shown
 
+  Scenario: Updating an existing sport with null data
+    Given an existing sport
+    When we want to update its name and its category with null data
+    Then a bad request error is shown for the sport
+
   Scenario: Updating a non-existent sport
     Given a non-existent sport
     When we want to update its name to "sn_updated" and its category to "sc_updated"

@@ -22,11 +22,9 @@ public class AthleteStepsDefinitionTest extends CucumberSpringConfiguration {
 
     private RequestSpecification request;
     private Response response;
-    private Map<String, Object> uniqueResponseInformation;
+    private Map<String, Object> uniqueResponseInformation, newAthlete, newAthleteToUpdate, randomAthlete, athleteToUpdate;
     private List<Map<String, Object>> allAthletes, responseInformation;
-    private Map<String, String> newAthlete, newAthleteToUpdate;
-    private Map<String, Object> randomAthlete, athleteToUpdate;
-    private Long randomId, idToUpdate;
+    private Long randomId, idToUpdateDelete;
     private String randomAthleteName, randomAthleteSurname, randomAthleteCountry;
 
     @Before
@@ -38,7 +36,7 @@ public class AthleteStepsDefinitionTest extends CucumberSpringConfiguration {
         randomAthlete = allAthletes.get((int) (Math.random() * allAthletes.size()));
         for (Map.Entry<String, Object> entry : randomAthlete.entrySet()) {
             switch (entry.getKey()) {
-                case "id":
+                case "athleteId":
                     randomId = Long.parseLong(entry.getValue().toString());
                 case "athleteName":
                     randomAthleteName = entry.getValue().toString();
@@ -59,8 +57,8 @@ public class AthleteStepsDefinitionTest extends CucumberSpringConfiguration {
         }
         if (athleteToUpdate != null) {
             for (Map.Entry<String, Object> entry : athleteToUpdate.entrySet()) {
-                if (entry.getKey().equals("id")) {
-                    idToUpdate = Long.parseLong(entry.getValue().toString());
+                if (entry.getKey().equals("athleteId")) {
+                    idToUpdateDelete = Long.parseLong(entry.getValue().toString());
                 }
             }
         }
@@ -75,8 +73,8 @@ public class AthleteStepsDefinitionTest extends CucumberSpringConfiguration {
         }
         if (athleteToUpdate != null) {
             for (Map.Entry<String, Object> entry : athleteToUpdate.entrySet()) {
-                if (entry.getKey().equals("id")) {
-                    idToUpdate = Long.parseLong(entry.getValue().toString());
+                if (entry.getKey().equals("athleteId")) {
+                    idToUpdateDelete = Long.parseLong(entry.getValue().toString());
                 }
             }
         }
@@ -142,13 +140,14 @@ public class AthleteStepsDefinitionTest extends CucumberSpringConfiguration {
 
     @Given("a non-existent athlete")
     public void a_non_existent_athlete() {
-        idToUpdate = 9999L;
+        idToUpdateDelete = 9999L;
         request = given().header("Content-Type", "application/json");
     }
 
     @When("we want to see all athletes information")
     public void we_want_to_see_all_athletes_information() {
         response = request.when().get("http://localhost:8000/olympicGames/athlete");
+        responseInformation = JsonPath.from(response.asString()).get();
     }
 
 //    @When("we want to see all athletes information when the list is empty")
@@ -211,25 +210,34 @@ public class AthleteStepsDefinitionTest extends CucumberSpringConfiguration {
         newAthleteToUpdate.put("athleteName", athleteName);
         newAthleteToUpdate.put("athleteSurname", athleteSurname);
         newAthleteToUpdate.put("athleteCountry", athleteCountry);
-        response = request.when().body(newAthleteToUpdate).patch("http://localhost:8000/olympicGames/athlete/id=" + idToUpdate);
+        response = request.when().body(newAthleteToUpdate).patch("http://localhost:8000/olympicGames/athlete/id=" + idToUpdateDelete);
+    }
+
+    @When("we want to update its name, its surname and its country with null data")
+    public void we_want_to_update_its_name_its_surname_and_its_country_with_null_data() {
+        newAthleteToUpdate = new HashMap<>();
+        newAthleteToUpdate.put("athleteName", null);
+        newAthleteToUpdate.put("athleteSurname", null);
+        newAthleteToUpdate.put("athleteCountry", null);
+        response = request.when().body(newAthleteToUpdate).patch("http://localhost:8000/olympicGames/athlete/id=" + idToUpdateDelete);
     }
 
     @When("we want to delete this athlete")
     public void we_want_to_delete_this_athlete() {
-        response = request.when().delete("http://localhost:8000/olympicGames/athlete/id=" + idToUpdate);
+        response = request.when().delete("http://localhost:8000/olympicGames/athlete/id=" + idToUpdateDelete);
     }
 
     @Then("all athletes information is shown")
     public void all_athletes_information_is_shown() {
         Assert.assertEquals(200, response.getStatusCode());
-        Assert.assertFalse(allAthletes.isEmpty());
+        Assert.assertFalse(responseInformation.isEmpty());
     }
 
     @Then("the athlete information is shown")
     public void the_athlete_information_is_shown() {
         Assert.assertEquals(200, response.getStatusCode());
         for (Map.Entry<String, Object> entry : uniqueResponseInformation.entrySet()) {
-            if (entry.getKey().equals("id")) {
+            if (entry.getKey().equals("athleteId")) {
                 Assert.assertEquals(randomId.toString(), entry.getValue().toString());
             } else if (entry.getKey().equals("athleteName")) {
                 Assert.assertEquals(randomAthleteName, entry.getValue());
@@ -264,7 +272,6 @@ public class AthleteStepsDefinitionTest extends CucumberSpringConfiguration {
                 Assert.assertEquals("athlete_country", entry.getValue());
             }
         }
-        newAthlete.clear();
     }
 
     @Then("a bad request error is shown for the athlete")
@@ -284,10 +291,9 @@ public class AthleteStepsDefinitionTest extends CucumberSpringConfiguration {
             } else if (entry.getKey().equals("athleteCountry")) {
                 Assert.assertEquals("ac_updated", entry.getValue());
             } else {
-                Assert.assertEquals(idToUpdate.toString(), entry.getValue().toString());
+                Assert.assertEquals(idToUpdateDelete.toString(), entry.getValue().toString());
             }
         }
-        newAthleteToUpdate.clear();
     }
 
     @Then("the athlete is correctly deleted")

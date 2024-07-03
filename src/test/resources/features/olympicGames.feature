@@ -60,6 +60,11 @@ Feature: Test olympicGames endpoint
     When we want to update its year to 1111 and its place to "ogp_updated"
     Then the Olympic Games is correctly updated and its information is shown
 
+  Scenario: Updating an existing Olympic Games with null data
+    Given an existing Olympic Games
+    When we want to update its year and its place with null data
+    Then a bad request error is shown for the Olympic Games
+
   Scenario: Updating a non-existent Olympic Games
     Given a non-existent Olympic Games
     When we want to update its year to 1111 and its place to "ogp_updated"

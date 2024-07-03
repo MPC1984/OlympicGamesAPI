@@ -6,9 +6,6 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
-import static io.restassured.RestAssured.given;
-
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -18,16 +15,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.restassured.RestAssured.given;
+
 //@RunWith(SpringRunner.class)
 public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
 
     private RequestSpecification request;
     private Response response;
-    private Map<String, Object> responseInformation;
-    private List<Map<String, Object>> allMetals;
-    private Map<String, String> newMetal, newMetalToUpdate;
-    private Map<String, Object> randomMetal, metalToUpdate;
-    private Long randomId, idToUpdate;
+    private Map<String, Object> uniqueResponseInformation, newMetal, newMetalToUpdate, randomMetal, metalToUpdate;
+    private List<Map<String, Object>> allMetals, responseInformation;
+    private Long randomId, idToUpdateDelete;
     private String randomMetalType;
 
     @Before
@@ -38,7 +35,7 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
         //Obtenemos un metal de la lista de manera aleatoria para realizar comprobaciones en los diferentes endpoints
         randomMetal = allMetals.get((int) (Math.random() * allMetals.size()));
         for (Map.Entry<String, Object> entry : randomMetal.entrySet()) {
-            if (entry.getKey().equals("id")) {
+            if (entry.getKey().equals("metalId")) {
                 randomId = Long.parseLong(entry.getValue().toString());
             } else {
                 randomMetalType = entry.getValue().toString();
@@ -55,8 +52,8 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
         }
         if (metalToUpdate != null) {
             for (Map.Entry<String, Object> entry : metalToUpdate.entrySet()) {
-                if (entry.getKey().equals("id")) {
-                    idToUpdate = Long.parseLong(entry.getValue().toString());
+                if (entry.getKey().equals("metalId")) {
+                    idToUpdateDelete = Long.parseLong(entry.getValue().toString());
                 }
             }
         }
@@ -71,8 +68,8 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
         }
         if (metalToUpdate != null) {
             for (Map.Entry<String, Object> entry : metalToUpdate.entrySet()) {
-                if (entry.getKey().equals("id")) {
-                    idToUpdate = Long.parseLong(entry.getValue().toString());
+                if (entry.getKey().equals("metalId")) {
+                    idToUpdateDelete = Long.parseLong(entry.getValue().toString());
                 }
             }
         }
@@ -131,13 +128,14 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
 
     @Given("a non-existent metal")
     public void a_non_existent_metal() {
-        idToUpdate = 9999L;
+        idToUpdateDelete = 9999L;
         request = given().header("Content-Type", "application/json");
     }
 
     @When("we want to see all metals information")
     public void we_want_to_see_all_metals_information() {
         response = request.when().get("http://localhost:8000/olympicGames/metal");
+        responseInformation = JsonPath.from(response.asString()).get();
     }
 
 //    @When("we want to see all metals information when the list is empty")
@@ -148,7 +146,7 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
     @When("we want to see the information of a concrete metal by its identifier")
     public void we_want_to_see_the_information_of_a_concrete_metal_by_its_identifier() {
         response = request.when().get("http://localhost:8000/olympicGames/metal/id=" + randomId);
-        responseInformation = JsonPath.from(response.asString()).get();
+        uniqueResponseInformation = JsonPath.from(response.asString()).get();
     }
 
     @When("we want to see the information of a concrete metal by a non-existent identifier")
@@ -159,12 +157,12 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
     @When("we want to see the information of a concrete metal by its metal type")
     public void we_want_to_see_the_information_of_a_concrete_metal_by_its_metal_type() {
         response = request.when().get("http://localhost:8000/olympicGames/metal/type=" + randomMetalType);
-        responseInformation = JsonPath.from(response.asString()).get();
+        uniqueResponseInformation = JsonPath.from(response.asString()).get();
     }
 
     @When("we want to see the information of a concrete metal by a non-existent metal type")
     public void we_want_to_see_the_information_of_a_concrete_metal_by_a_non_existent_metal_type() {
-        response = request.when().get("http://localhost:8000/olympicGames/metal/type=9999");
+        response = request.when().get("http://localhost:8000/olympicGames/metal/type=Test");
     }
 
     @When("we want to add this new metal")
@@ -176,18 +174,25 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
     public void we_want_to_update_its_metal_type(String metalType) {
         newMetalToUpdate = new HashMap<>();
         newMetalToUpdate.put("metalType", metalType);
-        response = request.when().body(newMetalToUpdate).patch("http://localhost:8000/olympicGames/metal/id=" + idToUpdate);
+        response = request.when().body(newMetalToUpdate).patch("http://localhost:8000/olympicGames/metal/id=" + idToUpdateDelete);
+    }
+
+    @When("we want to update its metal type with null data")
+    public void we_want_to_update_its_metal_type_with_null_data() {
+        newMetalToUpdate = new HashMap<>();
+        newMetalToUpdate.put("metalType", null);
+        response = request.when().body(newMetalToUpdate).patch("http://localhost:8000/olympicGames/metal/id=" + idToUpdateDelete);
     }
 
     @When("we want to delete this metal")
     public void we_want_to_delete_it() {
-        response = request.when().delete("http://localhost:8000/olympicGames/metal/id=" + idToUpdate);
+        response = request.when().delete("http://localhost:8000/olympicGames/metal/id=" + idToUpdateDelete);
     }
 
     @Then("all metals information is shown")
     public void all_metals_information_is_shown() {
         Assert.assertEquals(200, response.getStatusCode());
-        Assert.assertFalse(allMetals.isEmpty());
+        Assert.assertFalse(responseInformation.isEmpty());
     }
 
 //    @Then("no metals information is shown and a not found error is shown")
@@ -198,8 +203,8 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
     @Then("the metal information is shown")
     public void the_metal_information_is_shown() {
         Assert.assertEquals(200, response.getStatusCode());
-        for (Map.Entry<String, Object> entry : responseInformation.entrySet()) {
-            if (entry.getKey().equals("id")) {
+        for (Map.Entry<String, Object> entry : uniqueResponseInformation.entrySet()) {
+            if (entry.getKey().equals("metalId")) {
                 Assert.assertEquals(randomId.toString(), entry.getValue().toString());
             } else {
                 Assert.assertEquals(randomMetalType, entry.getValue());
@@ -215,13 +220,12 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
     @Then("the metal is correctly added and its information is shown")
     public void the_metal_is_correctly_added_and_its_information_is_shown() {
         Assert.assertEquals(201, response.getStatusCode());
-        responseInformation = JsonPath.from(response.asString()).get();
-        for (Map.Entry<String, Object> entry : responseInformation.entrySet()) {
+        uniqueResponseInformation = JsonPath.from(response.asString()).get();
+        for (Map.Entry<String, Object> entry : uniqueResponseInformation.entrySet()) {
             if (entry.getKey().equals("metalType")) {
                 Assert.assertEquals("metal_type", entry.getValue());
             }
         }
-        newMetal.clear();
     }
 
     @Then("a bad request error is shown for the metal")
@@ -237,15 +241,14 @@ public class MetalStepsDefinitionTest extends CucumberSpringConfiguration {
     @Then("the metal is correctly updated and its information is shown")
     public void the_metal_is_correctly_updated_and_its_information_is_shown() {
         Assert.assertEquals(200, response.getStatusCode());
-        responseInformation = JsonPath.from(response.asString()).get();
-        for (Map.Entry<String, Object> entry : responseInformation.entrySet()) {
+        uniqueResponseInformation = JsonPath.from(response.asString()).get();
+        for (Map.Entry<String, Object> entry : uniqueResponseInformation.entrySet()) {
             if (entry.getKey().equals("metalType")) {
                 Assert.assertEquals("mt_updated", entry.getValue());
             } else {
-                Assert.assertEquals(idToUpdate.toString(), entry.getValue().toString());
+                Assert.assertEquals(idToUpdateDelete.toString(), entry.getValue().toString());
             }
         }
-        newMetalToUpdate.clear();
     }
 
     @Then("the metal is correctly deleted")

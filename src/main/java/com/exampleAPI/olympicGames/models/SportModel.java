@@ -21,7 +21,7 @@ public class SportModel {
     @Column(name = "sport_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Sport identifier", example = "1")
-    private Long id;
+    private Long sportId;
 
     //Variable o campo que almacena el nombre del deporte
     @Column(name = "sport_name", length = 250, nullable = false)
@@ -45,12 +45,12 @@ public class SportModel {
         this.sportCategoryName = sportCategoryName;
     }
 
-    public Long getId() {
-        return id;
+    public Long getSportId() {
+        return sportId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setSportId(Long sportId) {
+        this.sportId = sportId;
     }
 
     public String getSportName() {

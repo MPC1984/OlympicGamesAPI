@@ -42,7 +42,7 @@ public class OlympicGamesMedalTableService {
     public List<OlympicGamesMedalTableModel> getOlympicGamesMedalTableByOlympicGamesId(Long idOlympicGames) {
         List<OlympicGamesMedalTableModel> olympicGamesMedalTableSearched = new ArrayList<>();
         for (OlympicGamesMedalTableModel olympicGamesMedalTable : this.olympicGamesMedalTableRepository.findAll()) {
-            if (olympicGamesMedalTable.getOlympicGames().getId().equals(idOlympicGames)) {
+            if (olympicGamesMedalTable.getOlympicGames().getOlympicGamesId().equals(idOlympicGames)) {
                 olympicGamesMedalTableSearched.add(olympicGamesMedalTable);
             }
         }
@@ -75,7 +75,7 @@ public class OlympicGamesMedalTableService {
     public List<OlympicGamesMedalTableModel> getOlympicGamesMedalTableBySportId(Long idSport) {
         List<OlympicGamesMedalTableModel> olympicGamesMedalTableSearched = new ArrayList<>();
         for (OlympicGamesMedalTableModel olympicGamesMedalTable : this.olympicGamesMedalTableRepository.findAll()) {
-            if (olympicGamesMedalTable.getSport().getId().equals(idSport)) {
+            if (olympicGamesMedalTable.getSport().getSportId().equals(idSport)) {
                 olympicGamesMedalTableSearched.add(olympicGamesMedalTable);
             }
         }
@@ -109,7 +109,7 @@ public class OlympicGamesMedalTableService {
     public List<OlympicGamesMedalTableModel> getOlympicGamesMedalTableByMetalId(Long idMetal) {
         List<OlympicGamesMedalTableModel> olympicGamesMedalTableSearched = new ArrayList<>();
         for (OlympicGamesMedalTableModel olympicGamesMedalTable : this.olympicGamesMedalTableRepository.findAll()) {
-            if (olympicGamesMedalTable.getMetal().getId().equals(idMetal)) {
+            if (olympicGamesMedalTable.getMetal().getMetalId().equals(idMetal)) {
                 olympicGamesMedalTableSearched.add(olympicGamesMedalTable);
             }
         }
@@ -131,7 +131,7 @@ public class OlympicGamesMedalTableService {
     public List<OlympicGamesMedalTableModel> getOlympicGamesMedalTableByAthleteId(Long idAthlete) {
         List<OlympicGamesMedalTableModel> olympicGamesMedalTableSearched = new ArrayList<>();
         for (OlympicGamesMedalTableModel olympicGamesMedalTable : this.olympicGamesMedalTableRepository.findAll()) {
-            if (olympicGamesMedalTable.getAthlete().getId().equals(idAthlete)) {
+            if (olympicGamesMedalTable.getAthlete().getAthleteId().equals(idAthlete)) {
                 olympicGamesMedalTableSearched.add(olympicGamesMedalTable);
             }
         }
@@ -179,28 +179,28 @@ public class OlympicGamesMedalTableService {
         MetalModel metalOlympicGamesMedalTable = null;
         AthleteModel athleteOlympicGamesMedalTable = null;
         for (OlympicGamesModel olympicGames : this.olympicGamesRepository.findAll()) {
-            if (olympicGames.getId().equals(idOlympicGames)) {
+            if (olympicGames.getOlympicGamesId().equals(idOlympicGames)) {
                 olympicGamesOlympicGamesMedalTable = olympicGames;
                 break;
             }
         }
         if (olympicGamesOlympicGamesMedalTable != null) {
             for (SportModel sport : this.sportRepository.findAll()) {
-                if (sport.getId().equals(idSport)) {
+                if (sport.getSportId().equals(idSport)) {
                     sportOlympicGamesMedalTable = sport;
                     break;
                 }
             }
             if (sportOlympicGamesMedalTable != null) {
                 for (MetalModel metal : this.metalRepository.findAll()) {
-                    if (metal.getId().equals(idMetal)) {
+                    if (metal.getMetalId().equals(idMetal)) {
                         metalOlympicGamesMedalTable = metal;
                         break;
                     }
                 }
                 if (metalOlympicGamesMedalTable != null) {
                     for (AthleteModel athlete : this.athleteRepository.findAll()) {
-                        if (athlete.getId().equals(idAthlete)) {
+                        if (athlete.getAthleteId().equals(idAthlete)) {
                             athleteOlympicGamesMedalTable = athlete;
                             break;
                         }
@@ -224,7 +224,7 @@ public class OlympicGamesMedalTableService {
         AthleteModel athleteOlympicGamesMedalTable = null;
         if (idOlympicGames != 0L) {
             for (OlympicGamesModel olympicGames : this.olympicGamesRepository.findAll()) {
-                if (olympicGames.getId().equals(idOlympicGames)) {
+                if (olympicGames.getOlympicGamesId().equals(idOlympicGames)) {
                     olympicGamesOlympicGamesMedalTable = olympicGames;
                     break;
                 }
@@ -237,7 +237,7 @@ public class OlympicGamesMedalTableService {
         }
         if (idSport != 0L) {
             for (SportModel sport : this.sportRepository.findAll()) {
-                if (sport.getId().equals(idSport)) {
+                if (sport.getSportId().equals(idSport)) {
                     sportOlympicGamesMedalTable = sport;
                     break;
                 }
@@ -250,7 +250,7 @@ public class OlympicGamesMedalTableService {
         }
         if (idMetal != 0L) {
             for (MetalModel metal : this.metalRepository.findAll()) {
-                if (metal.getId().equals(idMetal)) {
+                if (metal.getMetalId().equals(idMetal)) {
                     metalOlympicGamesMedalTable = metal;
                     break;
                 }
@@ -263,7 +263,7 @@ public class OlympicGamesMedalTableService {
         }
         if (idAthlete != 0L) {
             for (AthleteModel athlete : this.athleteRepository.findAll()) {
-                if (athlete.getId().equals(idAthlete)) {
+                if (athlete.getAthleteId().equals(idAthlete)) {
                     athleteOlympicGamesMedalTable = athlete;
                     break;
                 }

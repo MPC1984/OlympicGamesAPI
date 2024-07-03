@@ -31,7 +31,7 @@ public class OlympicGamesMedalTableModel {
     @Column(name = "olympic_games_medal_table_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "Olympic Games medal table identifier", example = "1")
-    private Long id;
+    private Long olympicGamesMedalTableId;
 
     //Variable o campo que almacena los Juegos Olímpicos de un registro del medallero olímpico
     @OneToOne
@@ -67,12 +67,12 @@ public class OlympicGamesMedalTableModel {
         this.athlete = athlete;
     }
 
-    public Long getId() {
-        return id;
+    public Long getOlympicGamesMedalTableId() {
+        return olympicGamesMedalTableId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOlympicGamesMedalTableId(Long olympicGamesMedalTableId) {
+        this.olympicGamesMedalTableId = olympicGamesMedalTableId;
     }
 
     public OlympicGamesModel getOlympicGames() {

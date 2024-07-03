@@ -50,6 +50,11 @@ Feature: Test metal endpoint
     When we want to update its metal type to "mt_updated"
     Then the metal is correctly updated and its information is shown
 
+  Scenario: Updating an existing metal with null data
+    Given an existing metal
+    When we want to update its metal type with null data
+    Then a bad request error is shown for the metal
+
   Scenario: Updating a non-existent metal
     Given a non-existent metal
     When we want to update its metal type to "mt_updated"
