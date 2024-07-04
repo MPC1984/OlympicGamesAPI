@@ -39,10 +39,13 @@ public class OlympicGamesStepsDefinitionTest extends CucumberSpringConfiguration
             switch (entry.getKey()) {
                 case "olympicGamesId":
                     randomId = Long.parseLong(entry.getValue().toString());
+                    break;
                 case "olympicGamesYear":
                     randomOlympicGamesYear = Integer.parseInt(entry.getValue().toString());
+                    break;
                 default:
                     randomOlympicGamesPlace = entry.getValue().toString();
+                    break;
             }
         }
         //Obtenemos los Juegos Olímpicos de la lista que se han añadido durante la ejecución de las pruebas

@@ -41,14 +41,17 @@ public class SportStepsDefinitionTest extends CucumberSpringConfiguration {
                 switch (entry.getKey()) {
                     case "sportId":
                         randomId = Long.parseLong(value.toString());
+                        break;
                     case "sportName":
                         randomSportName = value.toString();
+                        break;
                     case "sportCategoryName":
                         if (value != null) {
                             randomSportCategoryName = value.toString();
                         } else {
                             randomSportCategoryName = null;
                         }
+                        break;
                 }
             }
         }

@@ -38,12 +38,16 @@ public class AthleteStepsDefinitionTest extends CucumberSpringConfiguration {
             switch (entry.getKey()) {
                 case "athleteId":
                     randomId = Long.parseLong(entry.getValue().toString());
+                    break;
                 case "athleteName":
                     randomAthleteName = entry.getValue().toString();
+                    break;
                 case "athleteSurname":
                     randomAthleteSurname = entry.getValue().toString();
+                    break;
                 default:
                     randomAthleteCountry = entry.getValue().toString();
+                    break;
             }
         }
         //Obtenemos el atleta de la lista que se ha añadido durante la ejecución de las pruebas
