@@ -283,6 +283,11 @@ public class OlympicGamesMedalTableStepsDefinitionTest extends CucumberSpringCon
         request = given().header("Content-Type", "application/json");
     }
 
+//    @Given("a list of empty records of the Olympic Games medal table")
+//    public void a_list_of_empty_records_of_the_olympic_games_medal_table() {
+//        request = given().header("Content-Type", "application/json");
+//    }
+
     @Given("a new record of the Olympic Games medal table with Olympic Games identifier {long}, sport identifier {long}, metal identifier {long} and athlete identifier {long}")
     public void a_new_record_of_the_olympic_games_medal_table_with_olympic_games_identifier_sport_identifier_metal_identifier_and_athlete_identifier(Long olympicGamesId, Long sportId, Long metalId, Long athleteId) {
         newOlympicGamesMedalTable = new HashMap<>();
@@ -329,6 +334,11 @@ public class OlympicGamesMedalTableStepsDefinitionTest extends CucumberSpringCon
         response = request.when().get("http://localhost:8000/olympicGames/medalTable");
         responseInformation = JsonPath.from(response.asString()).get();
     }
+
+//    @When("we want to see all records of the Olympic Games medal table information when the list is empty")
+//    public void we_want_to_see_all_records_of_the_olympic_games_medal_table_information_when_the_list_is_empty() {
+//        response = request.when().get("http://localhost:8000/olympicGames");
+//    }
 
     @When("we want to see the information of a concrete record of the Olympic Games medal table by its identifier")
     public void we_want_to_see_the_information_of_a_concrete_record_of_the_olympic_games_medal_table_by_its_identifier() {
