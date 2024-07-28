@@ -22,7 +22,9 @@ public class athleteAutomStepsDefinitionTest extends CucumberSpringConfiguration
     private Map<String, Object> uniqueResponseInformation, newItem, newItemToUpdate;
     private List<Map<String, Object>> responseInformation;
     private Long id;
-    private String athleteName, athleteSurname, athleteCountry;
+    private String athleteName;
+    private String athleteSurname;
+    private String athleteCountry;
 
     @Given("a list of athletes")
     public void test_1() {

@@ -22,7 +22,8 @@ public class sportAutomStepsDefinitionTest extends CucumberSpringConfiguration {
     private Map<String, Object> uniqueResponseInformation, newItem, newItemToUpdate;
     private List<Map<String, Object>> responseInformation;
     private Long id;
-    private String sportName, sportCategoryName;
+    private String sportName;
+    private String sportCategoryName;
 
     @Given("a list of sports")
     public void test_1() {
@@ -139,7 +140,8 @@ public class sportAutomStepsDefinitionTest extends CucumberSpringConfiguration {
         for (Map.Entry<String, Object> entry : uniqueResponseInformation.entrySet()) {
             if (entry.getKey().equals("sportName")) {
                 Assert.assertEquals(newItem.get("sportName"), entry.getValue());
-            } else if (entry.getKey().equals("sportCategoryName")) {
+            }
+            if (entry.getKey().equals("sportCategoryName")) {
                 if (entry.getValue() != null) {
                     Assert.assertEquals(newItem.get("sportCategoryName"), entry.getValue());
                 } else {

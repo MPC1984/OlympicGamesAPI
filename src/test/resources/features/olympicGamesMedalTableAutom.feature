@@ -136,7 +136,7 @@ Feature: Test Olympic Games medal table endpoint
     Then a not found error is shown for the records of the Olympic Games medal table
 
   Scenario: Adding a new record of the Olympic Games medal table
-    Given a new record of the Olympic Games medal table with Olympic Games medal table Olympic Games identifier 2 Olympic Games medal table sport identifier 6 Olympic Games medal table metal identifier 1 and Olympic Games medal table athlete identifier 14
+    Given a new record of the Olympic Games medal table with Olympic Games medal table Olympic Games identifier 3 Olympic Games medal table sport identifier 1 Olympic Games medal table metal identifier 1 and Olympic Games medal table athlete identifier 13
     When we want to add this new record of the Olympic Games medal table
     Then the record of the Olympic Games medal table is correctly added and its information is shown
 

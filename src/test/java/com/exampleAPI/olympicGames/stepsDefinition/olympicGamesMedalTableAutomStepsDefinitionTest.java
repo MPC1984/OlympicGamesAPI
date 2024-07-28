@@ -21,10 +21,21 @@ public class olympicGamesMedalTableAutomStepsDefinitionTest extends CucumberSpri
     private Response response;
     private Map<String, Object> uniqueResponseInformation, newItem, newItemToUpdate;
     private List<Map<String, Object>> responseInformation;
-    private Long id, olympicGamesId, sportId, metalId, athleteId;
-    private Integer olympicGamesYear;
-    private String key, athleteName, athleteSurname, athleteCountry, metalType, olympicGamesPlace, sportName, sportCategoryName;
+    private String key;
     private Object value;
+    private Long id;
+    private Long olympicGamesId;
+    private Integer olympicGamesYear;
+    private String olympicGamesPlace;
+    private Long sportId;
+    private String sportName;
+    private String sportCategoryName;
+    private Long metalId;
+    private String metalType;
+    private Long athleteId;
+    private String athleteName;
+    private String athleteSurname;
+    private String athleteCountry;
 
     @Given("a list of records of the Olympic Games medal table")
     public void test_1() {
@@ -449,10 +460,10 @@ public class olympicGamesMedalTableAutomStepsDefinitionTest extends CucumberSpri
     public void test_82(Long olympicGamesId, Long sportId, Long metalId, Long athleteId) {
         request = given().header("Content-Type", "application/json");
         newItem = new HashMap<>();
-        newItem.put("idAthlete", athleteId);
-        newItem.put("idMetal", metalId);
         newItem.put("idOlympicGames", olympicGamesId);
         newItem.put("idSport", sportId);
+        newItem.put("idMetal", metalId);
+        newItem.put("idAthlete", athleteId);
     }
 
     @When("we want to add this new record of the Olympic Games medal table")
@@ -473,19 +484,22 @@ public class olympicGamesMedalTableAutomStepsDefinitionTest extends CucumberSpri
                         Assert.assertEquals((newItem.get("idOlympicGames")).toString(), entryItem.getValue().toString());
                     }
                 }
-            } else if (key.equals("sport")) {
+            }
+            if (key.equals("sport")) {
                 for (Map.Entry<String, Object> entryItem : ((Map<String, Object>) value).entrySet()) {
                     if (entryItem.getKey().equals("sportId")) {
                         Assert.assertEquals((newItem.get("idSport")).toString(), entryItem.getValue().toString());
                     }
                 }
-            } else if (key.equals("metal")) {
+            }
+            if (key.equals("metal")) {
                 for (Map.Entry<String, Object> entryItem : ((Map<String, Object>) value).entrySet()) {
                     if (entryItem.getKey().equals("metalId")) {
                         Assert.assertEquals((newItem.get("idMetal")).toString(), entryItem.getValue().toString());
                     }
                 }
-            } else if (key.equals("athlete")) {
+            }
+            if (key.equals("athlete")) {
                 for (Map.Entry<String, Object> entryItem : ((Map<String, Object>) value).entrySet()) {
                     if (entryItem.getKey().equals("athleteId")) {
                         Assert.assertEquals((newItem.get("idAthlete")).toString(), entryItem.getValue().toString());
